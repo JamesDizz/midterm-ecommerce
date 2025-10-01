@@ -1,12 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+
 const ProductDetail = () => {
   const { id } = useParams(); 
-  
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -33,6 +32,10 @@ const ProductDetail = () => {
     }
   };
 
+  const handleBuyNow = () => {
+    alert('Thank You for Buying!');
+  };
+
   if (loading) {
     return <p className="text-center text-slate-400">Loading product details...</p>;
   }
@@ -52,22 +55,30 @@ const ProductDetail = () => {
       </div>
 
       <div className="md:w-1/2 flex flex-col">
-        <h1 className="text-4xl font-bold mb-2">{product.title}</h1>
+        <h1 className="text-3xl lg:text-4xl font-bold mb-2">{product.title}</h1>
         <p className="text-slate-400 mb-4">Brand: {product.brand}</p>
         
-        <p className="text-lg text-slate-300 mb-6">{product.description}</p>
+        <p className="text-base text-slate-300 mb-6">{product.description}</p>
         
-        <div className="mt-auto"> 
-          <p className="text-3xl font-semibold text-white mb-4">
+        <div className="mt-auto">
+          <p className="text-2xl lg:text-3xl font-semibold text-white mb-6">
             ₱{product.price.toFixed(2)}
           </p>
 
-          <button 
-            onClick={handleAddToCart}
-            className="w-full bg-transparent border border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-lg"
-          >
-            Add to Cart
-          </button>
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <button 
+              onClick={handleBuyNow}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 text-lg"
+            >
+              Buy Now
+            </button>
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-transparent border border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-lg"
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
